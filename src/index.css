@@ -1,0 +1,566 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --background: 220 20% 6%; /* أزرق شديد يميل للأسود */
+    --foreground: 220 15% 96%; /* أبيض أزرق ناعم */
+
+    --card: 220 20% 8%;
+    --card-foreground: 220 15% 96%;
+
+    --popover: 220 20% 8%;
+    --popover-foreground: 220 15% 96%;
+
+    /* Primary: Deep Royal Blue */
+    --primary: 220 80% 55%; /* أزرق ملكي قوي */
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 220 90% 65%; /* أفتح */
+    --primary-dark: 220 80% 35%; /* أغمق */
+
+    /* Secondary: Midnight Blue */
+    --secondary: 230 45% 35%; /* أزرق متوسط غامق */
+    --secondary-foreground: 220 15% 96%;
+    --secondary-light: 230 40% 50%;
+
+    /* Muted: Soft Navy */
+    --muted: 220 15% 18%;
+    --muted-foreground: 220 10% 70%;
+
+    /* Accent: Electric Blue */
+    --accent: 200 98% 60%; /* سماوي لامع */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders & Inputs */
+    --border: 220 15% 18%;
+    --input: 220 15% 18%;
+    --ring: 220 80% 55%;
+
+    --radius: 0.75rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(220, 80%, 55%),
+      hsl(230, 75%, 45%)
+    );
+
+    --gradient-secondary: linear-gradient(
+      135deg,
+      hsl(230, 50%, 25%),
+      hsl(220, 30%, 10%)
+    );
+
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(220, 30%, 8%),
+      hsl(230, 60%, 12%)
+    );
+
+    --gradient-subtle: linear-gradient(
+      180deg,
+      hsl(220, 20%, 10%),
+      hsl(220, 15%, 6%)
+    );
+
+    --gradient-warm: linear-gradient(
+      135deg,
+      hsl(200, 90%, 60%),
+      hsl(210, 85%, 50%),
+      hsl(220, 80%, 45%)
+    );
+
+    /* Shadows محسّنة */
+    --shadow-soft: 0 4px 6px -1px rgba(46, 125, 50, 0.1),
+      0 2px 4px -2px rgba(46, 125, 50, 0.1);
+    --shadow-medium: 0 10px 15px -3px rgba(46, 125, 50, 0.15),
+      0 4px 6px -4px rgba(46, 125, 50, 0.1);
+    --shadow-large: 0 20px 25px -5px rgba(46, 125, 50, 0.2),
+      0 8px 10px -6px rgba(46, 125, 50, 0.1);
+    --shadow-glow: 0 0 40px rgba(46, 125, 50, 0.3);
+    --shadow-xl: 0 25px 50px -12px rgba(46, 125, 50, 0.25);
+
+    /* Transitions محسّنة */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-spring: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .dark {
+    --background: 142 70% 8%;
+    --foreground: 142 30% 95%;
+    --card: 142 60% 10%;
+    --card-foreground: 142 30% 95%;
+    --primary: 142 70% 60%;
+    --primary-foreground: 142 70% 15%;
+    --muted: 142 50% 15%;
+    --muted-foreground: 142 30% 65%;
+    --border: 142 50% 20%;
+
+    --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+    --shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 40px rgba(46, 125, 50, 0.4);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Cairo", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    direction: rtl;
+    scroll-behavior: smooth;
+  }
+}
+
+@layer utilities {
+  /* Gradients */
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .gradient-subtle {
+    background: var(--gradient-subtle);
+  }
+
+  .gradient-warm {
+    background: var(--gradient-warm);
+  }
+
+  /* Shadows */
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-medium {
+    box-shadow: var(--shadow-medium);
+  }
+
+  .shadow-large {
+    box-shadow: var(--shadow-large);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-xl {
+    box-shadow: var(--shadow-xl);
+  }
+
+  /* Transitions */
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+
+  .transition-bounce {
+    transition: var(--transition-bounce);
+  }
+
+  .transition-spring {
+    transition: var(--transition-spring);
+  }
+
+  /* Animations */
+  .animate-gentle-float {
+    animation: gentle-float 3s ease-in-out infinite;
+  }
+
+  .animate-slide-in {
+    animation: slide-in 0.3s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .animate-pulse-soft {
+    animation: pulse-soft 2s ease-in-out infinite;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.5s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+
+  /* Glass Effect */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-effect-dark {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .bg-gradient-primary {
+    @apply bg-gradient-to-r from-blue-500 to-indigo-500;
+  }
+}
+
+@layer components {
+  /* Hover Effects محسّنة */
+  .hover-lift {
+    @apply transition-smooth;
+  }
+
+  .hover-lift:hover {
+    @apply -translate-y-2 shadow-large;
+  }
+
+  .hover-lift:active {
+    @apply translate-y-0 shadow-medium;
+  }
+
+  .hover-glow {
+    @apply transition-smooth;
+  }
+
+  .hover-glow:hover {
+    @apply shadow-glow scale-105;
+  }
+
+  .hover-scale {
+    @apply transition-smooth;
+  }
+
+  .hover-scale:hover {
+    @apply scale-105;
+  }
+
+  /* Cards محسّنة */
+  .card-natural {
+    @apply bg-card rounded-2xl shadow-soft border border-border hover-lift backdrop-blur-sm;
+  }
+
+  .card-glass {
+    @apply glass-effect rounded-2xl shadow-medium hover-lift;
+  }
+
+  .card-elevated {
+    @apply bg-card rounded-2xl shadow-large border border-border hover:shadow-xl transition-smooth;
+  }
+
+  /* Buttons محسّنة */
+  .btn-primary {
+    @apply bg-gradient-primary text-primary-foreground font-bold rounded-xl px-6 py-3 shadow-medium hover:shadow-glow hover:scale-105 active:scale-95 transition-smooth;
+  }
+
+  .btn-secondary {
+    @apply bg-gradient-secondary text-secondary-foreground font-bold rounded-xl px-6 py-3 shadow-medium hover:shadow-glow hover:scale-105 active:scale-95 transition-smooth;
+  }
+
+  .btn-glass {
+    @apply glass-effect font-bold rounded-xl px-6 py-3 hover:bg-white/90 hover:scale-105 active:scale-95 transition-smooth;
+  }
+
+  /* Text Effects */
+  .text-gradient {
+    @apply bg-gradient-primary bg-clip-text text-transparent;
+  }
+
+  .text-glow {
+    text-shadow: 0 0 20px rgba(46, 125, 50, 0.5);
+  }
+
+  /* Borders */
+  .border-gradient {
+    border: 2px solid transparent;
+    background: linear-gradient(white, white) padding-box,
+      var(--gradient-primary) border-box;
+  }
+}
+
+/* Animations محسّنة */
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.02);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Scrollbar محسّن */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    hsl(var(--primary)),
+    hsl(var(--primary-dark))
+  );
+  border-radius: 10px;
+  border: 2px solid hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    hsl(var(--primary-light)),
+    hsl(var(--primary))
+  );
+}
+
+/* Selection */
+::selection {
+  background: hsl(var(--primary) / 0.3);
+  color: hsl(var(--foreground));
+}
+
+/* Focus Styles محسّنة */
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid hsl(var(--muted));
+  border-top-color: hsl(var(--primary));
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Shimmer Effect للـ Loading */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    hsl(var(--muted)) 0%,
+    hsl(var(--muted-foreground) / 0.1) 50%,
+    hsl(var(--muted)) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Tooltip */
+.tooltip {
+  @apply absolute z-50 px-3 py-2 text-sm bg-foreground text-background rounded-lg shadow-large;
+  animation: fade-in 0.2s ease-out;
+}
+
+/* Badge محسّن */
+.badge {
+  @apply inline-flex items-center gap-1 px-3 py-1 text-xs font-bold rounded-full shadow-soft;
+}
+
+.badge-primary {
+  @apply bg-gradient-primary text-primary-foreground;
+}
+
+.badge-secondary {
+  @apply bg-secondary text-secondary-foreground;
+}
+/* Image Hover Effect */
+.image-zoom {
+  @apply overflow-hidden rounded-xl;
+}
+
+.image-zoom img {
+  @apply transition-transform duration-500;
+}
+
+.image-zoom:hover img {
+  @apply scale-110;
+}
+
+/* Floating Action Button */
+.fab {
+  @apply fixed bottom-6 left-6 w-16 h-16 rounded-full shadow-large flex items-center justify-center z-40;
+  @apply bg-gradient-primary text-primary-foreground;
+  @apply hover:shadow-xl hover:scale-110 active:scale-95;
+  @apply transition-smooth;
+}
+
+/* Divider محسّن */
+.divider {
+  @apply relative flex items-center gap-4 my-8;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  @apply flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent;
+}
+
+/* Section Spacing */
+.section-padding {
+  @apply py-16 md:py-24;
+}
+
+.container-padding {
+  @apply px-4 md:px-6 lg:px-8;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Responsive Typography */
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1280px) {
+  html {
+    font-size: 18px;
+  }
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus للـ Keyboard Navigation */
+.focus-ring:focus-visible {
+  @apply ring-2 ring-primary ring-offset-2 ring-offset-background;
+}
+
+/* Skeleton Screen */
+.skeleton {
+  @apply bg-muted rounded-lg shimmer;
+}
+
+.skeleton-text {
+  @apply h-4 skeleton;
+}
+
+.skeleton-title {
+  @apply h-8 skeleton;
+}
+
+.skeleton-image {
+  @apply w-full aspect-square skeleton;
+}
