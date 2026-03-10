@@ -1,22 +1,22 @@
 # AAAS Accessories Store
 
-A modern, RTL, Arabic accessories e-commerce frontend built with React, TypeScript, Vite, and Tailwind CSS. It showcases products like necklaces, bracelets, rings, sunglasses, and more, with wishlist, cart, offers, and product details modal.
+Modern RTL Arabic accessories e-commerce frontend built with React, TypeScript, Vite, and Tailwind CSS. Includes product listing, wishlist, cart, bundles/offers, and product detail modal.
 
 ## Tech Stack
 
 - React + TypeScript
 - Vite
 - Tailwind CSS
-- Shadcn UI components
-- Lucide React icons
+- shadcn/ui components
+- Lucide icons
 
-## Features
+## Key Features
 
-- Responsive design (mobile + desktop)
-- Product listing, details modal, and manual image slider
-- Cart, wishlist, and offers pages
-- Context-based state management
-- Arabic RTL UI and animations
+- Responsive RTL UI (mobile + desktop)
+- Search, category, and price filters
+- Cart, wishlist, and order via WhatsApp
+- Product quick view + detailed modal
+- Context-based state management with localStorage
 
 ## Getting Started
 
@@ -26,52 +26,69 @@ A modern, RTL, Arabic accessories e-commerce frontend built with React, TypeScri
 
 ### Install
 
-```
+```bash
 npm install
 ```
 
 ### Development
 
-```
+```bash
 npm run dev
 ```
 
-Open the local URL printed by Vite.
+Open the URL printed by Vite.
 
 ### Build
 
-```
+```bash
 npm run build
 ```
 
 ### Preview Production Build
 
-```
+```bash
 npm run preview
 ```
 
-## Project Structure
+## Environment
 
-- `index.html`: SEO and social meta (accessories-focused)
-- `src/`: App source code
-  - `pages/`: Home, Products, Offers, Cart, Wishlist, Contact, About
-  - `components/`: Common + UI library primitives
-  - `data/`: `products.ts`, `bundles.ts`, `config.ts`
-  - `context/`: `AppContext.tsx` for global state
+This app loads products from an API:
 
-## Configuration
+```
+VITE_BACKEND_URL
+```
 
-- `src/data/config.ts`: Site name, tagline, shipping, social links. Adjust to your brand.
-- `src/data/products.ts`: Products dataset; IDs ordered sequentially; discounts computed.
+Example `.env`:
+```
+VITE_BACKEND_URL=https://your-backend.example.com
+```
 
-## Branding
+## Navigation Notes
 
-This project is branded "AAAS". Update logos and names in `src/assets` and `src/data/config.ts`.
+The app is a SPA without React Router. Navigation is controlled via `AppContext`.
+
+The Offers page exists but is currently commented out in navigation and routing. To enable it, uncomment `offers` in:
+- `src/App.tsx`
+- `src/components/common/Header.tsx`
+- `src/components/common/Footer.tsx`
+
+## Project Structure (High Level)
+
+- `src/data/config.ts`: Brand, contact, shipping, currency, messages
+- `src/data/products.ts`: Product loading + discount logic
+- `src/data/bundles.ts`: Offers/bundles pricing logic
+- `src/context/AppContext.tsx`: Global app state + localStorage
+- `src/pages/*`: All pages
+- `src/components/*`: UI and common components
+
+## Full Documentation
+
+See [DOCS.md](/home/abdullahelferjani/AAAS/DOCS.md) for comprehensive documentation and customization notes.
 
 ## Deployment
 
-Any static hosting (Netlify, Vercel, GitHub Pages). Build with `npm run build` and deploy `dist/`.
+Build with `npm run build` and deploy `dist/` to any static hosting (Netlify, Vercel, GitHub Pages). Remember to set `VITE_BACKEND_URL` in your hosting environment.
 
 ## License
 
-Proprietary – for AAAS internal use.
+Proprietary — for AAAS internal use.

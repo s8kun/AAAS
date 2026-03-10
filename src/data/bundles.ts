@@ -1,4 +1,4 @@
-import { PRODUCTS_DATA } from "./products";
+import { Product } from "./products";
 
 // خصم إضافي على العروض فقط (بعد حساب أسعار المنتجات)
 export const BUNDLE_DISCOUNT = 0;
@@ -18,10 +18,10 @@ export interface Bundle {
   benefits: string[];
 }
 
-const calculateBundlePrice = (productIds: number[]) => {
+const calculateBundlePrice = (productIds: number[], products: Product[]) => {
   // حساب السعر الأصلي للعرض = مجموع الأسعار الأصلية للمنتجات
   const originalPrice = productIds.reduce((sum, id) => {
-    const product = PRODUCTS_DATA.find((p) => p.id === id);
+    const product = products.find((p) => p.id === id);
     return sum + (product?.originalPrice || 0);
   }, 0);
 
@@ -105,10 +105,12 @@ const rawBundles = [
 ];
 
 // حساب الأسعار لكل عرض بناءً على أسعار المنتجات
-export const BUNDLES_DATA: Bundle[] = rawBundles.map((bundle) => {
-  const pricing = calculateBundlePrice(bundle.products);
-  return {
-    ...bundle,
-    ...pricing,
-  };
-});
+export const buildBundlesData = (products: Product[]): Bundle[] => {
+  return rawBundles.map((bundle) => {
+    const pricing = calculateBundlePrice(bundle.products, products);
+    return {
+      ...bundle,
+      ...pricing,
+    };
+  });
+};

@@ -2,28 +2,31 @@ import { Plus, Minus, ShoppingCart, Gift, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/common/Badge";
 import { useApp } from "@/context/AppContext";
-import { BUNDLES_DATA } from "@/data/bundles";
-import { PRODUCTS_DATA } from "@/data/products";
-import { useState } from "react";
+import { Bundle, buildBundlesData } from "@/data/bundles";
+import { useProducts } from "@/hooks/use-products";
+import { useMemo, useState } from "react";
 
 export default function OffersPage() {
   const { dispatch } = useApp();
+  const products = useProducts();
   const [quantities, setQuantities] = useState<Record<string, number>>({});
+  const bundlesData = useMemo(() => buildBundlesData(products), [products]);
 
   const getQuantity = (id: string) => quantities[id] || 1;
 
-  const handleAddToCart = (bundle: (typeof BUNDLES_DATA)[0]) => {
+  const handleAddToCart = (bundle: Bundle) => {
     const quantity = getQuantity(bundle.id);
 
     dispatch({
       type: "ADD_TO_CART",
       payload: {
         ...bundle,
-        id: bundle.id as any,
+        id: bundle.id,
         name: bundle.name,
         price: bundle.bundlePrice,
         quantity,
-        image: bundle.image,
+        exteriorImage: bundle.image,
+        interiorImages: [],
         isBundle: true,
         bundleId: bundle.id,
         bundleProducts: bundle.products,
@@ -90,11 +93,11 @@ export default function OffersPage() {
 
         {/* البطاقات */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {BUNDLES_DATA.map((bundle) => {
+          {bundlesData.map((bundle) => {
             const quantity = getQuantity(bundle.id);
             const totalPrice = bundle.bundlePrice * quantity;
             const bundleProducts = bundle.products
-              .map((id) => PRODUCTS_DATA.find((p) => p.id === id))
+              .map((id) => products.find((p) => p.id === id))
               .filter(Boolean);
 
             return (
@@ -156,14 +159,16 @@ export default function OffersPage() {
                           className="flex items-center gap-3 bg-background/50 rounded-lg p-2"
                         >
                           <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center overflow-hidden rounded">
-                            {product!.image.startsWith("http") ? (
+                            {product!.exteriorImage.startsWith("http") ? (
                               <img
-                                src={product!.image}
+                                src={product!.exteriorImage}
                                 alt={product!.name}
                                 className="w-full h-full object-cover"
                               />
                             ) : (
-                              <span className="text-3xl">{product!.image}</span>
+                              <span className="text-3xl">
+                                {product!.exteriorImage}
+                              </span>
                             )}
                           </div>
                           <div className="flex-1">

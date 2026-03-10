@@ -12,16 +12,17 @@ import {
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/product/ProductCard";
 import { useApp } from "@/context/AppContext";
-import { PRODUCTS_DATA } from "@/data/products";
 import { SITE_CONFIG } from "@/data/config";
+import { useProducts } from "@/hooks/use-products";
 import logo from "@/assets/logo.png";
 
 export default function HomePage() {
   const { dispatch } = useApp();
-  const featuredProducts = PRODUCTS_DATA.filter((p) => p.featured).slice(0, 6);
-  const bestSellers = PRODUCTS_DATA.sort(
-    (a, b) => b.soldCount - a.soldCount
-  ).slice(0, 3);
+  const products = useProducts();
+  const featuredProducts = products.filter((p) => p.featured).slice(0, 6);
+  const bestSellers = [...products]
+    .sort((a, b) => b.soldCount - a.soldCount)
+    .slice(0, 3);
 
   return (
     <div className="min-h-screen">
@@ -212,7 +213,7 @@ export default function HomePage() {
               }
               className="shadow-medium"
             >
-              عرض جميع الإكسسوارات ({PRODUCTS_DATA.length})
+              عرض جميع الإكسسوارات ({products.length})
             </Button>
           </div>
         </div>

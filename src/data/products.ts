@@ -102,16 +102,47 @@ const fetchProducts = async (): Promise<RawProduct[]> => {
   }
 };
 
-const rawProducts: RawProduct[] = await fetchProducts();
+const mapToProducts = (rawProducts: RawProduct[]): Product[] => {
+  return rawProducts.map((product) => {
+    const priceData = calculatePriceAfterDiscount(
+      product.originalPrice,
+      product.discountPercentage
+    );
 
-export const PRODUCTS_DATA: Product[] = rawProducts.map((product) => {
-  const priceData = calculatePriceAfterDiscount(
-    product.originalPrice,
-    product.discountPercentage
-  );
+    return {
+      ...product,
+      ...priceData,
+    };
+  });
+};
 
-  return {
-    ...product,
-    ...priceData,
-  };
-});
+export const PRODUCTS_DATA: Product[] = [];
+
+const listeners = new Set<() => void>();
+let productsLoadPromise: Promise<Product[]> | null = null;
+
+const notifyProductsUpdated = () => {
+  listeners.forEach((listener) => listener());
+};
+
+export const subscribeToProducts = (listener: () => void) => {
+  listeners.add(listener);
+  return () => listeners.delete(listener);
+};
+
+export const loadProducts = async (): Promise<Product[]> => {
+  if (productsLoadPromise) {
+    return productsLoadPromise;
+  }
+
+  productsLoadPromise = fetchProducts().then((rawProducts) => {
+    const mappedProducts = mapToProducts(rawProducts);
+    PRODUCTS_DATA.splice(0, PRODUCTS_DATA.length, ...mappedProducts);
+    notifyProductsUpdated();
+    return PRODUCTS_DATA;
+  });
+
+  return productsLoadPromise;
+};
+
+void loadProducts();

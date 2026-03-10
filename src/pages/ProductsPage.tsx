@@ -1,26 +1,29 @@
-import { ProductCard } from '@/components/product/ProductCard';
-import { SearchAndFilter } from '@/components/product/SearchAndFilter';
-import { useApp } from '@/context/AppContext';
-import { PRODUCTS_DATA } from '@/data/products';
+import { ProductCard } from "@/components/product/ProductCard";
+import { SearchAndFilter } from "@/components/product/SearchAndFilter";
+import { useApp } from "@/context/AppContext";
+import { useProducts } from "@/hooks/use-products";
 
 export default function ProductsPage() {
   const { state } = useApp();
+  const products = useProducts();
 
-  const filteredProducts = PRODUCTS_DATA.filter(product => {
+  const filteredProducts = products.filter((product) => {
     // Search filter
-    const matchesSearch = 
+    const matchesSearch =
       product.name.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
-      product.description.toLowerCase().includes(state.searchTerm.toLowerCase()) ||
-      product.tags.some(tag => tag.includes(state.searchTerm));
+      product.description
+        .toLowerCase()
+        .includes(state.searchTerm.toLowerCase()) ||
+      product.tags.some((tag) => tag.includes(state.searchTerm));
 
     // Category filter
-    const matchesCategory = 
-      state.selectedCategory === 'all' || 
+    const matchesCategory =
+      state.selectedCategory === "all" ||
       product.categories.includes(state.selectedCategory);
 
     // Price filter
-    const matchesPrice = 
-      product.price >= state.priceRange[0] && 
+    const matchesPrice =
+      product.price >= state.priceRange[0] &&
       product.price <= state.priceRange[1];
 
     return matchesSearch && matchesCategory && matchesPrice;
@@ -43,13 +46,17 @@ export default function ProductsPage() {
           <div className="lg:col-span-3">
             <div className="mb-6">
               <p className="text-muted-foreground">
-                عرض <span className="font-bold text-primary">{filteredProducts.length}</span> منتج
+                عرض{" "}
+                <span className="font-bold text-primary">
+                  {filteredProducts.length}
+                </span>{" "}
+                منتج
               </p>
             </div>
 
             {filteredProducts.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProducts.map(product => (
+                {filteredProducts.map((product) => (
                   <ProductCard key={product.id} product={product} />
                 ))}
               </div>

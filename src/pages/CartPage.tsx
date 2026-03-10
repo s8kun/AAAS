@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useApp } from "@/context/AppContext";
 import { SITE_CONFIG } from "@/data/config";
-import { PRODUCTS_DATA } from "@/data/products";
+import { useProducts } from "@/hooks/use-products";
 import { useMemo, useState } from "react";
 
 // دالة للتحقق من رقم الهاتف الليبياي
@@ -25,6 +25,7 @@ const validateAddress = (address: string): boolean => {
 
 export default function CartPage() {
   const { state, dispatch } = useApp();
+  const products = useProducts();
   const [errors, setErrors] = useState<{
     name?: string;
     phone?: string;
@@ -51,7 +52,7 @@ export default function CartPage() {
 
     const freeShippingRemaining = Math.max(
       0,
-      SITE_CONFIG.shipping.freeShippingThreshold - subtotal
+      SITE_CONFIG.shipping.freeShippingThreshold - subtotal,
     );
 
     return { subtotal, shipping, total, freeShippingRemaining };
@@ -128,7 +129,7 @@ export default function CartPage() {
       if (item.isBundle && item.bundleProducts) {
         message += `   📦 عرض خاص يحتوي على:\n`;
         item.bundleProducts.forEach((productId) => {
-          const product = PRODUCTS_DATA.find((p) => p.id === productId);
+          const product = products.find((p) => p.id === productId);
           if (product) {
             message += `      • ${product.name}\n`;
           }
