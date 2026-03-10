@@ -64,7 +64,10 @@ const normalizeRawProduct = (product: unknown): RawProduct | null => {
   const item = product as Record<string, unknown>;
 
   return {
-    ...(item as Omit<RawProduct, "originalPrice" | "discountPercentage" | "rating" | "reviews" | "soldCount">),
+    ...(item as Omit<
+      RawProduct,
+      "originalPrice" | "discountPercentage" | "rating" | "reviews" | "soldCount"
+    >),
     originalPrice: toNumber(item.originalPrice),
     discountPercentage: toNumber(item.discountPercentage),
     rating: toNumber(item.rating),
@@ -92,7 +95,6 @@ const fetchProducts = async (): Promise<RawProduct[]> => {
       .map(normalizeRawProduct)
       .filter((product): product is RawProduct => product !== null);
 
-
     return normalizedProducts;
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -102,7 +104,6 @@ const fetchProducts = async (): Promise<RawProduct[]> => {
 
 const rawProducts: RawProduct[] = await fetchProducts();
 
-// حساب السعر النهائي لكل منتج
 export const PRODUCTS_DATA: Product[] = rawProducts.map((product) => {
   const priceData = calculatePriceAfterDiscount(
     product.originalPrice,
